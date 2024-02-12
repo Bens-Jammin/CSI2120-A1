@@ -54,9 +54,7 @@ public class ColorImage {
                 pixelMap[x][y] = new Pixel(red, green, blue);
             }
         }
-    
-    
-    
+    	
     }
 
 
@@ -89,6 +87,9 @@ public class ColorImage {
         return new Pixel(newRed, newGreen, newBlue);
     }
 
+    public int getWidth(){ return width; }
+
+    public int getHeight(){ return height; }
 
     public int getDepth(){ return depth; }
 
