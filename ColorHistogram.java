@@ -1,7 +1,6 @@
-import java.lang.Math;
 import java.io.File;
-import java.util.Scanner;
-import java.util.ArrayList;
+import java.lang.Math;
+
 
 /***************************
  * CSI 2120 - Assignment 1 *
@@ -20,7 +19,8 @@ public class ColorHistogram {
     private int d = 3;
 
     private int numberOfBins;
-    private String histogramFileName;
+
+    private String filename;
 
 
     public ColorHistogram( int d ) {
@@ -36,30 +36,14 @@ public class ColorHistogram {
     //this constructor read a text file of pre-computed histogram and puts it in an ArrayList.
     public ColorHistogram( String imageFileName )throws Exception{
 
-        //image = new ColorImage( imageFileName );
+        image = new ColorImage( imageFileName );
+        this.filename = imageFileName;
 
-        numberOfBins = (int) Math.pow(2, this.d * 3 );
-        histogram = new double[ numberOfBins ];
+        d = image.getDepth();
+        numberOfBins = (int) Math.pow(2, (d * 3) );
+        histogram = new double[  numberOfBins];
 
-		File file = new File(imageFileName);
-        Scanner sc = new Scanner(file);
-        sc.useDelimiter(" +|\n");
-
-    
-        int i=0;
-        int k=0;
-        while (sc.hasNext()&& k<numberOfBins){
-        	if(i>0){
-	        	String value = sc.next();
-	        	histogram[k]= Double.valueOf(value);
-	            k++;
-	        }
-	        else{
-	        	String value = sc.next();
-	        	i =1;
-	    	}
-        }
-
+        createHistogram();
     }
 
 
@@ -67,6 +51,7 @@ public class ColorHistogram {
 
     public void setImage( ColorImage image ) {
         this.image = image;
+        this.filename = image.getFilename();
         image.reduceColour( d );
     }
 
@@ -118,5 +103,10 @@ public class ColorHistogram {
 
     	return histogram;
     }
+
+    public String getFilename(){
+        return new File( filename ).getName();
+    }
+
 
 }

@@ -22,8 +22,10 @@ public class ColorImage {
     private Pixel[][] pixelMap;
     
     private static int DEFAULT_DEPTH = 8;
+    private static int DEFAULT_REDUCED_DEPTH = 3;
 
     private BufferedImage image;
+    private String filename;
 
 
 
@@ -35,16 +37,20 @@ public class ColorImage {
             e.printStackTrace();
         }
 
+        this.filename = filename;
+
         height = image.getHeight();
         width = image.getWidth();
         depth = DEFAULT_DEPTH;
 
+        pixelMap = new Pixel[height][width];
+
         // loop through all pixels, separate the RGB values
         // to put into an int array of 3 elements 
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
+        for (int x = 0; x < height; x++) {
+            for (int y = 0; y < width; y++) {
 
-                int pixel = image.getRGB(x,y);
+                int pixel = image.getRGB(y,x);
                 Color color = new Color(pixel, true);
 
                 int red = color.getRed();
@@ -54,6 +60,8 @@ public class ColorImage {
                 pixelMap[x][y] = new Pixel(red, green, blue);
             }
         }
+
+        reduceColour( DEFAULT_REDUCED_DEPTH );
     	
     }
 
@@ -64,13 +72,12 @@ public class ColorImage {
 
 
     public void reduceColour( int d ){
-
         for( int r=0; r<height; r++ ){
             for( int c=0; c<width; c++ ){
                 pixelMap[r][c] = bitShiftPixel( pixelMap[r][c] , d); 
             }
         }
-
+        this.depth = d;
     }
 
 
@@ -92,5 +99,7 @@ public class ColorImage {
     public int getHeight(){ return height; }
 
     public int getDepth(){ return depth; }
+
+    public String getFilename(){ return filename; }
 
 }
