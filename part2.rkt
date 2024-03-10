@@ -1,19 +1,20 @@
 #lang racket
 
 ;Getting the file names in the directory.
-;+
 (define (list-files-in-directory directory-path)
   (map path->string (directory-list directory-path)))
 
+
 ;Reading the file from the directory and putting it into a list.
-;+
 (define (put-file-in-list dir filename)
   (let((path (string-append (string-append dir "/") filename)))
     (cond ((equal? (substring path (- (string-length path) 3) (string-length path)) "txt")
-           (file->list path) ; if created it compare it)
-           ))))
+           (cons filename (file->list path)))
+          (else '())
+           )))
 
-;+
+
+;Compares the lists of two histograms.
 (define (compare h1 h2)
   ;Histogram values are stored in lists.
   ;h1 is the first histogram list of a picture and h2 is the second to compare.
@@ -29,7 +30,6 @@
 
 
 ;Constructs list for all dataset txt files.
-;+
 (define (go-through-datasets dataset dir)
   (cond ((null? dataset)
          '())
@@ -39,10 +39,11 @@
 
 
 ;Comparing all dataset histograms with the query histogram.
-;+
 (define (comparing-all query data-list)
   (cond ((null? data-list)
          '())
+        ((null? (car data-list))
+         (comparing-all query (cdr data-list)))
         (else 
          (let ((result-num (compare query (cdar data-list))))
            (cons (cons (caar data-list) result-num) (comparing-all query (cdr data-list)))))))
@@ -50,7 +51,6 @@
 
 
 ;To sort nested list by the second value (aka comparaison result).
-;+
 (define (sort-nested-by-second lst)
   (sort lst
         (lambda (x y)
@@ -60,24 +60,31 @@
 
 ;Prints the 5 closest pictures.
 (define (print-results res i)
-  (cond ((equal? i 5)
-         '())
-        (display (car res)) (print-results (cdr res (+ i 1)))))
+  (if (= i 5)
+      '()
+      (cons (caar res) (print-results (cdr res) (+ i 1)))))
+
+;Creates the list for the query image histogram from its txt file.
+(define (query-txt-to-list filename)
+    (file->list filename))
+
+;Sorting by the comparaison result.
+(define (sort-by-number lst)
+  (define (compare x y)
+    (> (cdr x) (cdr y)))
+  (sort lst compare))
 
 
 
 ;Main program
 (define (similaritySearch queryHistogramFilename imageDatasetDirectory)
-  ;get the query points txt file and read it into a list
-  ;get the file names from the directory
-    ;read the txt files and get their histograms in a list
-    ;compare the query and dataset hist list
-    ;put it into the closest pics pair list
-      ;compare the result with the min result, if greater than it put it it and sort the results list
+  ;when running the program: the query image's histogram txt file and dataset directory must be in the same directory as this code.
+  ; (similaritySearch "q00.txt" "imageDataset2_15_20")
 
-  ;only problem is to create histogram list for the query point and call the below function with that list
-   (let ((res-list (sort-nested-by-second
-       (comparing-all queryHistogramFilename (go-through-datasets (list-files-in-directory imageDatasetDirectory) imageDatasetDirectory)))))
-       (print-results res-list 0)))
+  (let ((querylist (query-txt-to-list queryHistogramFilename)))
+   (let ((res-list (sort-by-number
+       (comparing-all querylist (go-through-datasets (list-files-in-directory imageDatasetDirectory) imageDatasetDirectory)))))
+       (print-results res-list 0))))
+
 
   
