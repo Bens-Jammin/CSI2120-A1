@@ -1,0 +1,94 @@
+CSI2120 Project - Part 2
+Arin Barak - 300280812
+Ben Miller - 300297574
+
+Functions in the Scheme Program
+
+•(define (similaritySearch queryHistogramFilename imageDatasetDirectory)
+	Main program.
+•(define (query-txt-to-list filename)
+	Creates the histogram list from query images txt file.
+•(define (list-files-in-directory directory-path)
+	Gets the file names in the given directory.
+•(define (go-through-datasets dataset dir)
+	Constructs list for all dataset txt files.
+•(define (put-file-in-list dir filename)
+	Reads from the file and puts the content into a list.
+•(define (comparing-all query data-list)
+	Calls the "compare" method to compare the dataset histograms with the query 	histogram.
+•(define (compare h1 h2)
+	Compares the two given histogram lists.
+•(define (sort-by-number lst)
+	Sorts the result array which is a nested array with the filename and comparaison 	result.
+•(define (print-results res i)
+	Constructs a list with the first 5 closest pictures filenames.
+
+
+Results
+Query 0
+> (similaritySearch "q00.jpg.txt" "imageDataset2_15_20")
+'("1144.jpg.txt" "3806.jpg.txt" "3714.jpg.txt" "3756.jpg.txt" "2462.jpg.txt")
+
+Query 1
+> (similaritySearch "q01.jpg.txt" "imageDataset2_15_20")
+'("3588.jpg.txt" "2536.jpg.txt" "3553.jpg.txt" "1875.jpg.txt" "2592.jpg.txt")
+
+Query 2
+> (similaritySearch "q02.jpg.txt" "imageDataset2_15_20")
+'("1091.jpg.txt" "3005.jpg.txt" "850.jpg.txt" "3728.jpg.txt" "1090.jpg.txt")
+
+Query 3
+> (similaritySearch "q03.jpg.txt" "imageDataset2_15_20")
+'("1255.jpg.txt" "3532.jpg.txt" "4507.jpg.txt" "692.jpg.txt" "4737.jpg.txt")
+
+Query 4
+> (similaritySearch "q04.jpg.txt" "imageDataset2_15_20")
+'("1799.jpg.txt" "848.jpg.txt" "4261.jpg.txt" "1800.jpg.txt" "1937.jpg.txt")
+
+Query 5
+> (similaritySearch "q05.jpg.txt" "imageDataset2_15_20")
+'("2223.jpg.txt" "3091.jpg.txt" "2550.jpg.txt" "2883.jpg.txt" "2901.jpg.txt")
+
+Query 6
+> (similaritySearch "q06.jpg.txt" "imageDataset2_15_20")
+'("2278.jpg.txt" "2224.jpg.txt" "1108.jpg.txt" "1917.jpg.txt" "3806.jpg.txt")
+
+Query 7
+> (similaritySearch "q07.jpg.txt" "imageDataset2_15_20")
+'("2377.jpg.txt" "2379.jpg.txt" "2079.jpg.txt" "1653.jpg.txt" "1896.jpg.txt")
+
+Query 8
+> (similaritySearch "q08.jpg.txt" "imageDataset2_15_20")
+'("2587.jpg.txt" "1837.jpg.txt" "2586.jpg.txt" "1515.jpg.txt" "1217.jpg.txt")
+
+Query 9
+> (similaritySearch "q09.jpg.txt" "imageDataset2_15_20")
+'("2839.jpg.txt" "3414.jpg.txt" "2617.jpg.txt" "4363.jpg.txt" "4816.jpg.txt")
+
+Query 10
+> (similaritySearch "q10.jpg.txt" "imageDataset2_15_20")
+'("2976.jpg.txt" "2971.jpg.txt" "3108.jpg.txt" "2194.jpg.txt" "4118.jpg.txt")
+
+Query 11
+> (similaritySearch "q11.jpg.txt" "imageDataset2_15_20")
+'("3017.jpg.txt" "3660.jpg.txt" "2411.jpg.txt" "1010.jpg.txt" "2067.jpg.txt")
+
+Query 12
+> (similaritySearch "q12.jpg.txt" "imageDataset2_15_20")
+'("3135.jpg.txt" "3133.jpg.txt" "2447.jpg.txt" "4429.jpg.txt" "2964.jpg.txt")
+
+Query 13
+> (similaritySearch "q13.jpg.txt" "imageDataset2_15_20")
+'("3225.jpg.txt" "2083.jpg.txt" "2082.jpg.txt" "2078.jpg.txt" "2607.jpg.txt")
+
+Query 14
+> (similaritySearch "q14.jpg.txt" "imageDataset2_15_20")
+'("2193.jpg.txt" "3108.jpg.txt" "3318.jpg.txt" "4028.jpg.txt" "3085.jpg.txt")
+
+Query 15
+> (similaritySearch "q15.jpg.txt" "imageDataset2_15_20")
+'("4756.jpg.txt" "2462.jpg.txt" "3756.jpg.txt" "908.jpg.txt" "3675.jpg.txt")
+
+
+Sources
+-> The Racket Guide https://docs.racket-lang.org/guide/index.html 
