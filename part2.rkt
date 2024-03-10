@@ -1,4 +1,8 @@
 #lang racket
+;CSI2120 Project - Part 2
+;Arin Barak - 300280812
+;Ben Miller - 300297574
+
 
 ;Getting the file names in the directory.
 (define (list-files-in-directory directory-path)
