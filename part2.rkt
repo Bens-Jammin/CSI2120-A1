@@ -51,17 +51,7 @@
         (else 
          (let ((result-num (compare query (cdar data-list))))
            (cons (cons (caar data-list) result-num) (comparing-all query (cdr data-list)))))))
-               
-
-
-;To sort nested list by the second value (aka comparaison result).
-(define (sort-nested-by-second lst)
-  (sort lst
-        (lambda (x y)
-          (let ((x-second (if (pair? (cdr x)) (cadr x) 0))
-                (y-second (if (pair? (cdr y)) (cadr y) 0)))
-            (> x-second y-second)))))
-
+    
 ;Prints the 5 closest pictures.
 (define (print-results res i)
   (if (= i 5)
